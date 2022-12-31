@@ -1,0 +1,58 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: eboreimetk/client
+      context: client/react-microservices
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+         - src: 'src/**/*.js'
+            dest: .
+    - image: eboreimetk/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+         - src: '*.js'
+            dest: .
+    - image: eboreimetk/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+         - src: '*.js'
+            dest: .
+    - image: eboreimetk/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+         - src: '*.js'
+            dest: .
+    - image: eboreimetk/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+         - src: '*.js'
+            dest: .
+    - image: eboreimetk/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+         - src: '*.js'
+            dest: .
