@@ -4,6 +4,8 @@ import axios from "axios";
 const PostCreate = () => {
   const [title, setTitle] = useState("");
 
+
+  //create post
   const handleChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
